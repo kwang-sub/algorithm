@@ -1,9 +1,8 @@
 package book.question.chap02;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
-public class Q4 {
+public class Q04 {
 //    기존 dayOfYear를 변수 i와 days없이 while문으로 구현하세요
 
     public static void main(String[] args) {
