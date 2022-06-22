@@ -2,42 +2,70 @@ package book.question.chap03;
 
 import java.util.Scanner;
 
-//요솟수가 n인 배열 a에서 key와 일치하는 인덱스를 배열 idx에 저장하고 일치하는 인덱스가 몇개 있는지 반환하는 메서드 작성하세요
+//이진 탐색 과정을 출력하는 트로그램 출력
 public class Q04 {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
         System.out.print("요솟수 : ");
         int num = sc.nextInt();
-        int[] a = new int[num];
+        int[] x = new int[num];
 
-        for (int i = 0; i < num; i++) {
-            System.out.printf("a[%d] : ", i);
-            a[i] = sc.nextInt();
+        System.out.println("오름차순으로 입력하세요");
+        System.out.print("x[0] : ");
+        x[0] = sc.nextInt();
+
+        for (int i = 1; i < num; i++) {
+            do {
+                System.out.printf("x[%d] : ", i);
+                x[i] = sc.nextInt();
+            } while (x[i - 1] >= x[i]);
         }
 
         System.out.print("찾을 값 : ");
         int key = sc.nextInt();
 
-        int[] idx = new int[num];
+        int result = binSearch(x, num, key);
 
-        int result = searchIdx(a, num, key, idx);
-        System.out.printf("\n반환 받은 값 : %d", result);
+        System.out.println(result);
     }
 
-    private static int searchIdx(int[] a, int num, int key, int[] idx) {
-        int count = 0;
-        for (int i = 0; i < num; i++) {
-            if (a[i] == key) {
-                idx[count++] = i + 1;
+    private static int binSearch(int[] x, int num, int key) {
+        int pr = num - 1;
+
+        System.out.printf("%3s", "|");
+        for (int n : x) {
+            System.out.printf("%2d", n);
+        }
+        System.out.println("\n--+--------------");
+//        System.out.printf(String.format("%%%ds*\n", (i * 2) + 2), "");
+
+        for (int pl = 0; pl <= pr;) {
+            int pc = (pl + pr) / 2;
+            if (pl != pc)
+                System.out.printf(String.format("%%%ds<-%%%ds+", (pl * 2) + 2, (pc - pl) * 2), "", "");
+            else
+                System.out.printf(String.format("%%%ds<-+", pc * 4 + 1), "");
+            if (pc != pr)
+                System.out.printf(String.format("%%%ds->\n", (pr - pc) * 4 - 2), "");
+            else
+                System.out.println("->");
+            System.out.printf("%2d|", pc);
+            for (int n : x) {
+                System.out.printf("%2d", n);
+            }
+            System.out.printf("\n%3s\n", "|");
+            if (x[pc] == key) {
+                return pc;
+            } else if (x[pc] > key) {
+                pr = pc - 1;
+            } else {
+                pl = pc + 1;
             }
         }
-        for (int n : idx) {
-            if (n == 0) {
-                break;
-            }
-            System.out.printf("%2d", n - 1);
-        }
-        return count;
+
+        return -1;
     }
+
 }
+
