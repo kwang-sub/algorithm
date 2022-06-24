@@ -49,8 +49,6 @@ public class IntStackTester {
                     s.dump();
                     break;
             }
-
         }
-
     }
 }
