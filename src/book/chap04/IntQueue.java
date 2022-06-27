@@ -30,7 +30,6 @@ public class IntQueue {
         if (num >= max) {
             throw new OverflowIntQueueException();
         }
-
         que[rear++] = x;
         num++;
         if (rear == max) {
