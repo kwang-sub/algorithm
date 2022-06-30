@@ -11,32 +11,35 @@ public class Q05 {
         int[] nstk = new int[100];
         int[] sstk = new int[100];
         int ptr = -1;
-        int sw = 0;
+        int step = 0;
 
         while (true) {
             if (n > 0) {
                 ptr++;
                 nstk[ptr] = n;
-                sstk[ptr] = sw;
+                sstk[ptr] = step;
 
-                if (sw == 0)
+                if (step == 0) {
                     n = n - 1;
-                else if (sw == 1) {
+                } else if (step == 1) {
                     n = n - 2;
-                    sw = 0;
                 }
                 continue;
             }
+
             do {
                 n = nstk[ptr];
-                sw = sstk[ptr--] + 1;
+                step = sstk[ptr] + 1;
+                ptr--;
 
-                if (sw == 2) {
+                if (step == 2) {
                     System.out.println(n);
-                    if (ptr < 0)
+
+                    if (ptr < 0) {
                         return;
+                    }
                 }
-            } while (sw == 2);
+            } while (step == 2);
         }
     }
 
